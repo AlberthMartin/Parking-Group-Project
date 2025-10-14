@@ -1,14 +1,18 @@
+# =========================
+# Build / output directories
+# =========================
 target/
-!.mvn/wrapper/maven-wrapper.jar
+build/
 !**/src/main/**/target/
 !**/src/test/**/target/
-.kotlin
+!.mvn/wrapper/maven-wrapper.jar
+
+# =========================
+# IDE files
+# =========================
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -28,12 +32,45 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
 
-### Mac OS ###
+# =========================
+# OS Files
+# =========================
 .DS_Store
+Thumbs.db
+
+# =========================
+# Maven / Gradle / Java artifacts
+# =========================
+*.log
+dependency-reduced-pom.xml
+release.properties
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+*.class
+*.jar
+*.war
+*.ear
+
+# =========================
+# Environment / configuration files
+# =========================
+.env
+application.properties
+application-*.properties
+application.yml
+application-*.yml
+
+# =========================
+# Temporary / backup files
+# =========================
+*.tmp
+*.bak
+.kotlin
