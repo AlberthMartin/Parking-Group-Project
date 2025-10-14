@@ -1,0 +1,15 @@
+spring.application.name=demo
+
+server.port=yourport
+
+#MySQL connection
+spring.datasource.url=jdbc:mysql://localhost:3306/parkingappdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+spring.datasource.username=YOURUSERNAME
+spring.datasource.password=YOURPASSWORD
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# JPA / Hibernate
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+tSecret=liauwhrg9o3y4985u9u139y4thqg38475bv27i4uc15bv743ycaoiehroighi356048952u6hqeurethtwei4gt5oq274
