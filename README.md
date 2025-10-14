@@ -55,7 +55,38 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 ```
 ---
-## Notes for Collaborators
+## Running the Backend (after setting up the database)
+
+### Build the Backend
+The project uses Maven Wrapper, so you don’t need Maven installed globally.
+
+Mac / Linux: (in project root)
+```bash
+./mvnw clean install
+```
+Windows:
+```bash
+./mvnw clean install
+```
+
+This will download the correct Maven version automatically and build the project.
+
+### Run the Backend
+Mac / Linux:
+```bash
+./mvnw spring-boot:run
+```
+Windows:
+```bash
+mvnw.cmd spring-boot:run
+```
+
+The backend will start on port 8080. The frontend can now make API requests to `http://localhost:8080`.
+
+
+---
+## Notes
 - `.idea/` files are excluded from the repository. Each collaborator can use their own IDE settings.
 - `application.properties` (backend) is gitignored - use your own credentials.
-
+- The backend API endpoints are defined in the controllers in `src/main/java/com/example/demo/controller`
+---
