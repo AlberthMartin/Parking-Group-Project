@@ -13,3 +13,10 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 tSecret=liauwhrg9o3y4985u9u139y4thqg38475bv27i4uc15bv743ycaoiehroighi356048952u6hqeurethtwei4gt5oq274
+
+##API version
+api.prefix=/api/v1
+
+## 1 hour
+auth.token.expirationInMils=3600000
+auth.token.jwtSecret=JWTSECRET
