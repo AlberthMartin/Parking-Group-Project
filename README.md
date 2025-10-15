@@ -3,9 +3,13 @@
  This repository contains the backend and frontend code for the Parking App, developed as part of a group project course at ÅA University.
  
 ---
-## Project Structure
-- **Backend**: `src/main/java/com/example/demo/` + Maven wrapper files (`mvnw`, `mvnw.cmd`) and `pom.xml`
+## Project File Structure
+- **Backend**:`src/main/java/com/example/demo/controller`, `src/main/java/com/example/demo/service` `src/main/java/com/example/demo/model`, `src/main/java/com/example/demo/repository`,... 
++ Maven wrapper files (`mvnw`, `mvnw.cmd`) and `pom.xml`
 - **Frontend**: `frontend/` folder (React Native)
+---
+## System Architecture Overview
+<img width="662" height="519" alt="image" src="https://github.com/user-attachments/assets/89bc5f70-ac48-494b-8a20-5a60722aa3c6" />
 
 ---
 ## Tech Stack
