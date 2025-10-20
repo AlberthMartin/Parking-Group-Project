@@ -10,6 +10,26 @@ build/
 .mvn/wrapper/maven-wrapper.jar
 !.mvn/wrapper/maven-wrapper.properties
 
+# Node / Expo
+node_modules/
+**/node_modules/
+.expo/
+.expo-shared/
+dist/
+build/
+
+# React Native (if ever ejected)
+android/
+ios/
+
+# IDE
+.idea/
+.vscode/
+
+# Env
+.env
+.env.*
+
 # =========================
 # IDE files
 # =========================
