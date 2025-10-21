@@ -56,5 +56,23 @@ public class ParkingSpot {
     private LocalDateTime updatedAt;
 
 
+    public ParkingSpot(String title, String description, String address, String city, String postalCode, String country, BigDecimal latitude, BigDecimal longitude, LocalDateTime availableFrom, LocalDateTime availableTo, double pricePerHour, double pricePerDay) {
+        this.title = title;
+        this.description = description;
+        this.address = address;
+        this.city = city;
+        this.postal_code = postalCode;
+        this.country = country;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.available_from = availableFrom;
+        this.available_to = availableTo;
+        this.price_per_hour = pricePerHour;
+        this.price_per_day = pricePerDay;
+        this.isActive = true;
+    }
 
+    public void deactivate() {
+        this.isActive = false;
+    }
 }
