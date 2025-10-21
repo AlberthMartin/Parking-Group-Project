@@ -102,5 +102,7 @@ public class ParkingSpotController {
         }
     }
 
+    //TODO: Deactivate and Activate parking spots
+
 
 }

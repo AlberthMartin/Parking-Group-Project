@@ -10,7 +10,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -35,4 +34,12 @@ public class Vehicle {
     private LocalDateTime createdAt;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    public Vehicle(String model, String color, String plate, int lengthCm, int widthCm) {
+        this.model = model;
+        this.color = color;
+        this.plate = plate;
+        this.length_cm = lengthCm;
+        this.width_cm = widthCm;
+    }
 }

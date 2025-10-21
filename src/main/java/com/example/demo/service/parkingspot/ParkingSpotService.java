@@ -110,7 +110,7 @@ public class ParkingSpotService implements IParkingSpotService {
         }
         //Check that the parking spot belongs to the user
         if(!existingParkingSpot.getCreatedBy().equals(currentUser)){
-            throw new ActionNotAllowedException("This is not your parking spot");
+            throw new ActionNotAllowedException("This is not current users parking spot");
         }
         //Updates the parking spot values
         updateExistingParkingSpot(request, existingParkingSpot);
@@ -153,8 +153,53 @@ public class ParkingSpotService implements IParkingSpotService {
         if(existingParkingSpot.getCreatedBy().equals(currentUser)){
             parkingSpotRepository.delete(existingParkingSpot);
         } else{
-            throw new ActionNotAllowedException("This is not your parking spot");
+            throw new ActionNotAllowedException("This is not current users parking spot");
         }
+    }
+
+    public void deactivateParkingSpotById(Long parkingSpotId, AppUserDetails userDetails) {
+        ParkingSpot parkingSpot = parkingSpotRepository.findById(parkingSpotId)
+                .orElseThrow(() -> new ResourceNotFoundException("Parking spot not found"));
+
+        User currentUser = userRepository.findByEmail(userDetails.getUsername());
+
+        if (currentUser == null) {
+            throw new ResourceNotFoundException("User not found");
+        }
+
+        if(!parkingSpot.getCreatedBy().equals(currentUser)){
+            throw new ActionNotAllowedException("This is not current users parking spot");
+        }
+
+        if(!parkingSpot.isActive()){
+            throw new ActionNotAllowedException("This parking spot is already deactivated");
+        }
+
+        parkingSpot.setActive(false);
+        parkingSpotRepository.save(parkingSpot);
+    }
+
+    public void activateParkingSpotById(Long parkingSpotId, AppUserDetails userDetails) {
+        ParkingSpot parkingSpot = parkingSpotRepository.findById(parkingSpotId)
+                .orElseThrow(() -> new ResourceNotFoundException("Parking spot not found"));
+
+        User currentUser = userRepository.findByEmail(userDetails.getUsername());
+
+        if (currentUser == null) {
+            throw new ResourceNotFoundException("User not found");
+        }
+
+        if(!parkingSpot.getCreatedBy().equals(currentUser)){
+            throw new ActionNotAllowedException("This is not current parking spot");
+        }
+
+        if(parkingSpot.isActive()){
+            throw new ActionNotAllowedException("This parking spot is already active");
+        }
+        //Activate parking spot
+        parkingSpot.setActive(true);
+        parkingSpotRepository.save(parkingSpot);
+
     }
 
     //Method to convert parking spot objects into parkingspot dtos
@@ -178,4 +223,6 @@ public class ParkingSpotService implements IParkingSpotService {
                 .map(this :: convertToDto)
                 .toList();
     }
+
+
 }

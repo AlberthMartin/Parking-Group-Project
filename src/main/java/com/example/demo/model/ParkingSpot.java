@@ -71,8 +71,4 @@ public class ParkingSpot {
         this.price_per_day = pricePerDay;
         this.isActive = true;
     }
-
-    public void deactivate() {
-        this.isActive = false;
-    }
 }
