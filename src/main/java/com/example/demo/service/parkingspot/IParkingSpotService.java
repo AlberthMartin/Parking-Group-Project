@@ -31,4 +31,8 @@ public interface IParkingSpotService {
     ParkingSpotDto updateParkingSpotById(UpdateParkingSpotRequest request, Long ParkingSpotId, AppUserDetails userDetails);
 
     void deleteParkingSpotById(Long parkingSpotId, AppUserDetails userDetails);
+
+    void deactivateParkingSpotById(Long parkingSpotId, AppUserDetails userDetails);
+
+    void activateParkingSpotById(Long parkingSpotId, AppUserDetails userDetails);
 }

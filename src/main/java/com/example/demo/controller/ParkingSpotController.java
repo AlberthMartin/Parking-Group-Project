@@ -103,6 +103,26 @@ public class ParkingSpotController {
     }
 
     //TODO: Deactivate and Activate parking spots
+    @PutMapping("/parking-spot/{parkingSpotId}/deactivate")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<ApiResponse> deactivateParkingSpot(@AuthenticationPrincipal AppUserDetails userDetails, @PathVariable Long parkingSpotId){
+        try{
+            parkingSpotService.deactivateParkingSpotById(parkingSpotId, userDetails);
+            return ResponseEntity.ok(new ApiResponse("Parking spot deactivated", null));
+        }catch (ResourceNotFoundException | ActionNotAllowedException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(e.getMessage(), null));
+        }
+    }
 
+    @PutMapping("/parking-spot/{parkingSpotId}/activate")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<ApiResponse> activateParkingSpot(@AuthenticationPrincipal AppUserDetails userDetails, @PathVariable Long parkingSpotId){
+        try{
+            parkingSpotService.activateParkingSpotById(parkingSpotId, userDetails);
+            return ResponseEntity.ok(new ApiResponse("Parking spot activated", null));
+        }catch (ResourceNotFoundException | ActionNotAllowedException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(e.getMessage(), null));
+        }
+    }
 
 }

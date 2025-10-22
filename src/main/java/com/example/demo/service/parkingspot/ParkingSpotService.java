@@ -156,7 +156,8 @@ public class ParkingSpotService implements IParkingSpotService {
             throw new ActionNotAllowedException("This is not current users parking spot");
         }
     }
-
+    //Parking spots are by default active when created
+    @Override
     public void deactivateParkingSpotById(Long parkingSpotId, AppUserDetails userDetails) {
         ParkingSpot parkingSpot = parkingSpotRepository.findById(parkingSpotId)
                 .orElseThrow(() -> new ResourceNotFoundException("Parking spot not found"));
@@ -179,6 +180,7 @@ public class ParkingSpotService implements IParkingSpotService {
         parkingSpotRepository.save(parkingSpot);
     }
 
+    @Override
     public void activateParkingSpotById(Long parkingSpotId, AppUserDetails userDetails) {
         ParkingSpot parkingSpot = parkingSpotRepository.findById(parkingSpotId)
                 .orElseThrow(() -> new ResourceNotFoundException("Parking spot not found"));
