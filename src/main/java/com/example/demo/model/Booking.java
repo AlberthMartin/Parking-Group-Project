@@ -10,7 +10,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
-import java.sql.Time;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,7 +25,7 @@ public class Booking {
     private LocalDateTime start_time;
     private LocalDateTime end_time;
 
-    private BigDecimal totalAmount; //total price for booking
+    private double totalAmount; //total price for booking
 
     @Enumerated(EnumType.STRING)
     private BookingStatus status; //'PENDING','CONFIRMED','CANCELLED','COMPLETED'

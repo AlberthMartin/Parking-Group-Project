@@ -1,10 +1,8 @@
 package com.example.demo.service.vehicle;
 
-import com.example.demo.dto.ParkingSpotDto;
-import com.example.demo.dto.VehicleDto;
+import com.example.demo.responseDtos.VehicleResponseDto;
 import com.example.demo.exeptions.ActionNotAllowedException;
 import com.example.demo.exeptions.ResourceNotFoundException;
-import com.example.demo.model.ParkingSpot;
 import com.example.demo.model.User;
 import com.example.demo.model.Vehicle;
 import com.example.demo.repository.UserRepository;
@@ -26,7 +24,7 @@ public class VehicleService implements IVehicleService {
     private final ModelMapper modelMapper;
 
     @Override
-    public VehicleDto createVehicle(VehicleRequest request, AppUserDetails userDetails) {
+    public VehicleResponseDto createVehicle(VehicleRequest request, AppUserDetails userDetails) {
         Vehicle vehicle = createVehicle(request);
         User currentUser = userRepository.findByEmail(userDetails.getUsername());
         if (currentUser == null) {
@@ -48,7 +46,7 @@ public class VehicleService implements IVehicleService {
     }
 
     @Override
-    public VehicleDto updateVehicle(VehicleRequest request, AppUserDetails userDetails, Long vehicleId) {
+    public VehicleResponseDto updateVehicle(VehicleRequest request, AppUserDetails userDetails, Long vehicleId) {
         Vehicle existingVehicle = vehicleRepository.findById(vehicleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found"));
         User currentUser = userRepository.findByEmail(userDetails.getUsername());
@@ -85,7 +83,7 @@ public class VehicleService implements IVehicleService {
     }
 
     @Override
-    public List<VehicleDto> fetchVehiclesCreatedByActiveUser(AppUserDetails userDetails) {
+    public List<VehicleResponseDto> fetchVehiclesCreatedByActiveUser(AppUserDetails userDetails) {
         User currentUser = userRepository.findByEmail(userDetails.getUsername());
         if (currentUser == null) {
             throw new ResourceNotFoundException("User not found");
@@ -95,11 +93,11 @@ public class VehicleService implements IVehicleService {
     }
 
     /////// DTO CONVERTER METHODS /////////
-    private VehicleDto convertToDto(Vehicle vehicle){
-        return modelMapper.map(vehicle, VehicleDto.class);
+    private VehicleResponseDto convertToDto(Vehicle vehicle){
+        return modelMapper.map(vehicle, VehicleResponseDto.class);
     }
 
-    private List<VehicleDto> getConvertedVehicles(List<Vehicle> vehicles){
+    private List<VehicleResponseDto> getConvertedVehicles(List<Vehicle> vehicles){
         return vehicles.stream()
                 .map(this :: convertToDto)
                 .toList();

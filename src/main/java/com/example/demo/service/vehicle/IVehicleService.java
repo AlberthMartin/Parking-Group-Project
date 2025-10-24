@@ -1,6 +1,6 @@
 package com.example.demo.service.vehicle;
 
-import com.example.demo.dto.VehicleDto;
+import com.example.demo.responseDtos.VehicleResponseDto;
 import com.example.demo.requests.vehicle.VehicleRequest;
 import com.example.demo.security.user.AppUserDetails;
 
@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface IVehicleService {
 
-    VehicleDto createVehicle(VehicleRequest request, AppUserDetails userDetails);
+    VehicleResponseDto createVehicle(VehicleRequest request, AppUserDetails userDetails);
 
-    VehicleDto updateVehicle(VehicleRequest request, AppUserDetails userDetails, Long vehicleId);
+    VehicleResponseDto updateVehicle(VehicleRequest request, AppUserDetails userDetails, Long vehicleId);
 
     void deleteVehicle(AppUserDetails userDetails, Long vehicleId);
 
-    List<VehicleDto> fetchVehiclesCreatedByActiveUser(AppUserDetails userDetails);
+    List<VehicleResponseDto> fetchVehiclesCreatedByActiveUser(AppUserDetails userDetails);
 
     /**
      * List<ParkingSpotDto> fetchAllActiveParkingSpotsInGivenCity(String city);

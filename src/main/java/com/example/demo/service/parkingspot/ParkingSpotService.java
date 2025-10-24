@@ -1,6 +1,6 @@
 package com.example.demo.service.parkingspot;
 
-import com.example.demo.dto.ParkingSpotDto;
+import com.example.demo.responseDtos.ParkingSpotResponseDto;
 import com.example.demo.exeptions.ActionNotAllowedException;
 import com.example.demo.exeptions.ResourceNotFoundException;
 import com.example.demo.model.ParkingSpot;
@@ -27,14 +27,14 @@ public class ParkingSpotService implements IParkingSpotService {
 
     // Fetch all active spots
     @Override
-    public List<ParkingSpotDto> fetchAllActiveParkingSpots(){
+    public List<ParkingSpotResponseDto> fetchAllActiveParkingSpots(){
          List<ParkingSpot> parkingSpots = parkingSpotRepository.findByIsActiveTrue();
          return getConvertedParkingSpots(parkingSpots);
     }
 
     // Fetch all spots created by current user
     @Override
-    public List<ParkingSpotDto> fetchParkingSpotsByUserId(AppUserDetails userDetails){
+    public List<ParkingSpotResponseDto> fetchParkingSpotsByUserId(AppUserDetails userDetails){
 
         User currentUser = userRepository.findByEmail(userDetails.getUsername());
 
@@ -47,7 +47,7 @@ public class ParkingSpotService implements IParkingSpotService {
 
     //Fetch all active spots in specific city
     @Override
-    public List<ParkingSpotDto> fetchAllActiveParkingSpotsInGivenCity(String city){
+    public List<ParkingSpotResponseDto> fetchAllActiveParkingSpotsInGivenCity(String city){
          List<ParkingSpot> parkingSpots = parkingSpotRepository.findByCityIgnoreCaseAndIsActiveTrue(city);
          return getConvertedParkingSpots(parkingSpots);
     }
@@ -55,13 +55,13 @@ public class ParkingSpotService implements IParkingSpotService {
     //Fetch available spots in a city with given data range
     //Fetch all active spots in specific city
     @Override
-    public List<ParkingSpotDto> fetchAllActiveParkingSpotsInGivenCityAndTimePeriod(String city, LocalDateTime startDate, LocalDateTime endDate){
+    public List<ParkingSpotResponseDto> fetchAllActiveParkingSpotsInGivenCityAndTimePeriod(String city, LocalDateTime startDate, LocalDateTime endDate){
          List<ParkingSpot> parkingSpots = parkingSpotRepository.findAvailableSpotsInCity(city, startDate, endDate);
          return getConvertedParkingSpots(parkingSpots);
     }
 
     @Override
-    public ParkingSpotDto createParkingSpot(CreateParkingSpotRequest request, AppUserDetails userDetails) {
+    public ParkingSpotResponseDto createParkingSpot(CreateParkingSpotRequest request, AppUserDetails userDetails) {
         //Create and fill in the needed info for a parking spot
         ParkingSpot parkingSpot = createParkingSpot(request);
         //fetch current user
@@ -97,7 +97,7 @@ public class ParkingSpotService implements IParkingSpotService {
     }
 
     @Override
-    public ParkingSpotDto updateParkingSpotById(UpdateParkingSpotRequest request, Long ParkingSpotId, AppUserDetails userDetails) {
+    public ParkingSpotResponseDto updateParkingSpotById(UpdateParkingSpotRequest request, Long ParkingSpotId, AppUserDetails userDetails) {
         //get existing parking spot, see if it exists
         ParkingSpot existingParkingSpot = parkingSpotRepository.findById(ParkingSpotId)
                 .orElseThrow(() -> new ResourceNotFoundException("ParkingSpot not found"));
@@ -205,8 +205,8 @@ public class ParkingSpotService implements IParkingSpotService {
     }
 
     //Method to convert parking spot objects into parkingspot dtos
-    private ParkingSpotDto convertToDto(ParkingSpot parkingSpot){
-        return modelMapper.map(parkingSpot, ParkingSpotDto.class);
+    private ParkingSpotResponseDto convertToDto(ParkingSpot parkingSpot){
+        return modelMapper.map(parkingSpot, ParkingSpotResponseDto.class);
     }
     /** TODO: later add for images, ex :
      *public ProductDto convertToDto(Product product) {
@@ -220,7 +220,7 @@ public class ParkingSpotService implements IParkingSpotService {
      *     }
      */
 
-    private List<ParkingSpotDto> getConvertedParkingSpots(List<ParkingSpot> parkingSpots){
+    private List<ParkingSpotResponseDto> getConvertedParkingSpots(List<ParkingSpot> parkingSpots){
         return parkingSpots.stream()
                 .map(this :: convertToDto)
                 .toList();

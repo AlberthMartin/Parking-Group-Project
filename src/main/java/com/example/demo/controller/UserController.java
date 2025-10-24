@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.UserDto;
+import com.example.demo.responseDtos.UserResponseDto;
 import com.example.demo.exeptions.AlreadyExistsException;
 import com.example.demo.exeptions.ResourceNotFoundException;
 import com.example.demo.requests.user.CreateUserRequest;
@@ -22,8 +22,8 @@ public class UserController {
     @GetMapping("/{userId}/user")
     public ResponseEntity<ApiResponse> getUserById(@PathVariable Long userId) {
         try {
-            UserDto userDto = userService.getUserById(userId);
-            return ResponseEntity.ok(new ApiResponse("success", userDto));
+            UserResponseDto userResponseDto = userService.getUserById(userId);
+            return ResponseEntity.ok(new ApiResponse("success", userResponseDto));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }
@@ -32,8 +32,8 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> createUser(@RequestBody CreateUserRequest request) {
         try {
-            UserDto userDto = userService.createUser(request);
-            return ResponseEntity.ok(new ApiResponse("success", userDto));
+            UserResponseDto userResponseDto = userService.createUser(request);
+            return ResponseEntity.ok(new ApiResponse("success", userResponseDto));
         } catch (AlreadyExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(e.getMessage(), null));
         }

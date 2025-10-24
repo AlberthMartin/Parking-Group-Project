@@ -1,9 +1,9 @@
-package com.example.demo.dto;
+package com.example.demo.responseDtos;
 
 import lombok.Data;
 
 @Data
-public class VehicleDto {
+public class VehicleResponseDto {
     private String model;
     private String color;
     private String plate;

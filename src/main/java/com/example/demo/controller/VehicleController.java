@@ -1,15 +1,11 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.ParkingSpotDto;
-import com.example.demo.dto.VehicleDto;
+import com.example.demo.responseDtos.VehicleResponseDto;
 import com.example.demo.exeptions.ActionNotAllowedException;
 import com.example.demo.exeptions.ResourceNotFoundException;
-import com.example.demo.model.Vehicle;
-import com.example.demo.requests.parkingspot.UpdateParkingSpotRequest;
 import com.example.demo.requests.vehicle.VehicleRequest;
 import com.example.demo.response.ApiResponse;
 import com.example.demo.security.user.AppUserDetails;
-import com.example.demo.service.parkingspot.IParkingSpotService;
 import com.example.demo.service.vehicle.IVehicleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,8 +27,8 @@ public class VehicleController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponse> createVehicle(@RequestBody VehicleRequest request, @AuthenticationPrincipal AppUserDetails userDetails){
         try {
-            VehicleDto  vehicleDto = vehicleService.createVehicle(request,userDetails);
-            return ResponseEntity.ok(new ApiResponse("Vehicle created",vehicleDto));
+            VehicleResponseDto vehicleResponseDto = vehicleService.createVehicle(request,userDetails);
+            return ResponseEntity.ok(new ApiResponse("Vehicle created", vehicleResponseDto));
         }
         catch (ResourceNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(),null));
@@ -54,8 +50,8 @@ public class VehicleController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponse> updateVehicle(@RequestBody VehicleRequest request, @PathVariable Long vehicleId, @AuthenticationPrincipal AppUserDetails userDetails){
         try{
-            VehicleDto vehicleDto = vehicleService.updateVehicle(request,userDetails, vehicleId);
-            return ResponseEntity.ok(new ApiResponse("Vehicle updated", vehicleDto));
+            VehicleResponseDto vehicleResponseDto = vehicleService.updateVehicle(request,userDetails, vehicleId);
+            return ResponseEntity.ok(new ApiResponse("Vehicle updated", vehicleResponseDto));
         }catch (ResourceNotFoundException | ActionNotAllowedException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(e.getMessage(), null));
         }
@@ -65,7 +61,7 @@ public class VehicleController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponse> getCurrentUsersVehicles(@AuthenticationPrincipal AppUserDetails userDetails){
         try{
-            List<VehicleDto> vehicles = vehicleService.fetchVehiclesCreatedByActiveUser(userDetails);
+            List<VehicleResponseDto> vehicles = vehicleService.fetchVehiclesCreatedByActiveUser(userDetails);
             return ResponseEntity.ok(new ApiResponse("Current users vehicles fetched: ", vehicles));
         }catch (ResourceNotFoundException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(e.getMessage(), null));

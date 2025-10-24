@@ -1,6 +1,6 @@
 package com.example.demo.service.user;
 
-import com.example.demo.dto.UserDto;
+import com.example.demo.responseDtos.UserResponseDto;
 import com.example.demo.exeptions.AlreadyExistsException;
 import com.example.demo.exeptions.ResourceNotFoundException;
 import com.example.demo.model.User;
@@ -22,7 +22,7 @@ public class UserService implements IUserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDto getUserById(Long userId) {
+    public UserResponseDto getUserById(Long userId) {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
@@ -31,7 +31,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDto createUser(CreateUserRequest request) {
+    public UserResponseDto createUser(CreateUserRequest request) {
         User usr = Optional.of(request) //can be null
                 .filter(user -> !userRepository.existsByEmail(request.getEmail())) //Checks that user is not in the database
                 .map(req -> {
@@ -56,7 +56,7 @@ public class UserService implements IUserService {
 
     //Helper method to convert user data into save dto data
     //to send to the frontend.
-    private UserDto convertUserToDto(User user) {
-        return modelMapper.map(user, UserDto.class);
+    private UserResponseDto convertUserToDto(User user) {
+        return modelMapper.map(user, UserResponseDto.class);
     }
 }

@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.ParkingSpotDto;
+import com.example.demo.responseDtos.ParkingSpotResponseDto;
 import com.example.demo.exeptions.ActionNotAllowedException;
 import com.example.demo.exeptions.ResourceNotFoundException;
 import com.example.demo.requests.parkingspot.CreateParkingSpotRequest;
@@ -28,8 +28,8 @@ public class ParkingSpotController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponse> createParkingSpot(@RequestBody CreateParkingSpotRequest request, @AuthenticationPrincipal AppUserDetails userDetails){
         try{
-            ParkingSpotDto parkingSpotDto = parkingSpotService.createParkingSpot(request, userDetails);
-            return ResponseEntity.ok(new ApiResponse("Parking spot created", parkingSpotDto));
+            ParkingSpotResponseDto parkingSpotResponseDto = parkingSpotService.createParkingSpot(request, userDetails);
+            return ResponseEntity.ok(new ApiResponse("Parking spot created", parkingSpotResponseDto));
         }catch (ResourceNotFoundException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(e.getMessage(), null));
         }
@@ -50,8 +50,8 @@ public class ParkingSpotController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponse> updateParkingSpot(@RequestBody UpdateParkingSpotRequest request, @PathVariable Long parkingSpotId, @AuthenticationPrincipal AppUserDetails userDetails){
         try{
-            ParkingSpotDto parkingSpotDto = parkingSpotService.updateParkingSpotById(request,parkingSpotId, userDetails);
-            return ResponseEntity.ok(new ApiResponse("Parking spot updated", parkingSpotDto));
+            ParkingSpotResponseDto parkingSpotResponseDto = parkingSpotService.updateParkingSpotById(request,parkingSpotId, userDetails);
+            return ResponseEntity.ok(new ApiResponse("Parking spot updated", parkingSpotResponseDto));
         }catch (ResourceNotFoundException | ActionNotAllowedException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(e.getMessage(), null));
         }
@@ -61,7 +61,7 @@ public class ParkingSpotController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponse> getAllActiveParkingSpots(){
         try{
-            List<ParkingSpotDto> activeParkingSpots = parkingSpotService.fetchAllActiveParkingSpots();
+            List<ParkingSpotResponseDto> activeParkingSpots = parkingSpotService.fetchAllActiveParkingSpots();
             return ResponseEntity.ok(new ApiResponse("All active parking spots found.", activeParkingSpots));
         }catch (ResourceNotFoundException e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
@@ -72,7 +72,7 @@ public class ParkingSpotController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponse> getAllUsersParkingSpots(@AuthenticationPrincipal AppUserDetails userDetails){
         try{
-            List<ParkingSpotDto> usersParkingSpots = parkingSpotService.fetchParkingSpotsByUserId(userDetails);
+            List<ParkingSpotResponseDto> usersParkingSpots = parkingSpotService.fetchParkingSpotsByUserId(userDetails);
             return ResponseEntity.ok(new ApiResponse("All current users spots fetched successfully.", usersParkingSpots));
         }catch (ResourceNotFoundException e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
@@ -83,7 +83,7 @@ public class ParkingSpotController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponse> getAllActiveParkingSpots(@PathVariable String city){
         try{
-            List<ParkingSpotDto> spots = parkingSpotService.fetchAllActiveParkingSpotsInGivenCity(city);
+            List<ParkingSpotResponseDto> spots = parkingSpotService.fetchAllActiveParkingSpotsInGivenCity(city);
             return ResponseEntity.ok(new ApiResponse("All active parking spots in: "+ city +", found.", spots));
         }catch (ResourceNotFoundException e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
@@ -94,7 +94,7 @@ public class ParkingSpotController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<ApiResponse> getAllActiveParkingSpotsInGivenCityBetweenStartDateAndEndDate(@PathVariable String city, @PathVariable LocalDateTime startTime, @PathVariable LocalDateTime endTime){
         try{
-            List<ParkingSpotDto> spots =
+            List<ParkingSpotResponseDto> spots =
               parkingSpotService.fetchAllActiveParkingSpotsInGivenCityAndTimePeriod(city, startTime, endTime);
             return ResponseEntity.ok(new ApiResponse("All active parking spots in: "+ city +" active between"+ startTime +" and "+ endTime +", found.", spots));
         }catch (ResourceNotFoundException e){

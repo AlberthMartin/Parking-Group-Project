@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.responseDtos;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class ParkingSpotDto {
+public class ParkingSpotResponseDto {
     private String title;
     private String description;
     private String address;
