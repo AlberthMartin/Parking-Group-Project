@@ -122,12 +122,7 @@ public class BookingService implements IBookingService {
 
         User renter = userRepository.findByEmail(userDetails.getUsername());
 
-        if(!booking.getRenter().equals(renter)){
-            throw new ResourceNotFoundException("Only renter can cancel its own booking");
-        }
-
-        booking.setStatus(BookingStatus.CANCELLED);
-        return convertToDto(bookingRepository.save(booking));
+        return null;
     }
 
     @Override
