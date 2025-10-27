@@ -18,7 +18,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findBySpot(ParkingSpot spot);
 
     // Check if a spot is already booked in a given time range
-    boolean existsBySpotAndStart_timeLessThanEqualAndEnd_timeGreaterThanEqual(
+    boolean existsBySpotAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(
             ParkingSpot spot,
             LocalDateTime endTime,
             LocalDateTime startTime
@@ -29,4 +29,10 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     Optional<Booking> findBySpotAndStatus(ParkingSpot spot, BookingStatus status);
 
     User renter(User renter);
+
+    List<Booking> findByStatusAndStartTimeBefore(BookingStatus bookingStatus, LocalDateTime now);
+
+    List<Booking> findByStatusAndEndTimeBefore(BookingStatus bookingStatus, LocalDateTime now);
+
+    List<Booking> findByStatusAndCreatedAtBefore(BookingStatus bookingStatus, LocalDateTime cutoff);
 }

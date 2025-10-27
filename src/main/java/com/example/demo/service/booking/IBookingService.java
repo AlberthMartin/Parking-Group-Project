@@ -1,5 +1,6 @@
 package com.example.demo.service.booking;
 
+import com.example.demo.requests.booking.CreateBookingRequest;
 import com.example.demo.responseDtos.BookingResponseDto;
 import com.example.demo.security.user.AppUserDetails;
 
@@ -12,10 +13,13 @@ public interface IBookingService {
     //   then COMPLETED
     //public BookingResponseDto confirmBooking (Long bookingId);
 
-    BookingResponseDto createBooking(AppUserDetails userDetails, Long spotId, LocalDateTime start, LocalDateTime end);
+    BookingResponseDto createBooking(AppUserDetails userDetails, CreateBookingRequest request);
 
     //Cancel a booking can do 1 h before booking
     public BookingResponseDto cancelBooking (AppUserDetails userDetails, Long bookingId);
+
+    //Update a booking 1 hour before booking, start and end date can be changed
+    public BookingResponseDto updateBooking(AppUserDetails userDetails, Long bookingId, CreateBookingRequest request);
 
     //Get booking by renter
     public List<BookingResponseDto> getBookingsByRenter(Long renterId);
