@@ -1,16 +1,25 @@
 package com.example.demo.model;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.example.demo.enums.BookingStatus;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -28,28 +37,29 @@ public class Booking {
     @Column(name = "end_time")
     private LocalDateTime endTime;
 
-    private double totalAmount; //total price for booking
+    // total price for booking
+    private double totalAmount;
 
     @Enumerated(EnumType.STRING)
     private BookingStatus status; //'PENDING','CONFIRMED','CANCELLED','COMPLETED'
 
-    //one user can have many bookings (rent many spots)
+    // one user can have many bookings (rent many spots)
     @ManyToOne(optional = false)
     @JoinColumn(name = "renter_id")
     private User renter;
 
-    //Many bookings to one spot
+    // many bookings to one spot
     @ManyToOne(optional = false)
     @JoinColumn(name = "spot_id")
     private ParkingSpot spot;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    //payment info...
-    //private String stripePaymentIntentId;
-
-
+    // payment info
+    @Column(name = "stripe_payment_intent_id")
+    private String stripePaymentIntentId;
 }

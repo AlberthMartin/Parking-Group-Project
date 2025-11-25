@@ -1,9 +1,9 @@
 package com.example.demo.responseDtos;
 
-import lombok.Data;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+import lombok.Data;
 
 @Data
 public class BookingResponseDto {
@@ -17,4 +17,5 @@ public class BookingResponseDto {
     private Long spotId;
     private String spotLocation;
     private LocalDateTime createdAt;
+    private String clientSecret;
 }
