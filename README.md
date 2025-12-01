@@ -4,7 +4,7 @@
  
 ---
 ## Project File Structure
-- **Backend**:`src/main/java/com/example/demo/controller`, `src/main/java/com/example/demo/service` `src/main/java/com/example/demo/model`, `src/main/java/com/example/demo/repository`,... 
+- **Backend**: is in: `src/main/java/com/example/demo/`
 + Maven wrapper files (`mvnw`, `mvnw.cmd`) and `pom.xml`
 - **Frontend**: `frontend/` folder (React Native)
 ---
